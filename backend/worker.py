@@ -20,12 +20,11 @@ from main import (
     init_signals_table,
     init_plans_table,
     get_automation,
-    generate_content_ai,
     _run_pipeline_job,
     _run_scout_job,
-    _run_publish_job,
     _run_analyst_job,
 )
+from agents.orchestrator import run_publish_only
 
 
 def initialize() -> None:
@@ -45,7 +44,7 @@ async def run(mode: str) -> None:
     elif mode == "scout":
         await _run_scout_job()
     elif mode == "publish":
-        await _run_publish_job()
+        await run_publish_only(automation_getter=get_automation)
     elif mode == "analyst":
         await _run_analyst_job()
     else:
@@ -53,5 +52,4 @@ async def run(mode: str) -> None:
 
 
 if __name__ == "__main__":
-    mode = os.getenv("SOCIALFLOW_MODE", "pipeline")
-    asyncio.run(run(mode))
+    asyncio.run(run(os.getenv("SOCIALFLOW_MODE", "pipeline")))

@@ -1,8 +1,11 @@
 from pathlib import Path
+from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 
+app = FastAPI()
 
-def handler(request):
+@app.get("/", response_class=HTMLResponse)
+async def page():
     html = Path("frontend/index.html").read_text(encoding="utf-8")
     html = html.replace("const API = 'http://localhost:8000/api';", "const API = '/api';")
     old = "<button className={`btn btn-${p.id}`} onClick={() => setModal(p.id)}>\n                                                + Add Account\n                                            </button>"

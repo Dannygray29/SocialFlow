@@ -10,12 +10,15 @@ os.chdir(BACKEND_DIR)
 os.environ.setdefault("VERCEL", "1")
 
 from main import app, init_db, init_brand_tables, init_signals_table, init_plans_table
+from x_oauth import router as x_oauth_router
+
+app.include_router(x_oauth_router)
 
 
 @asynccontextmanager
 async def vercel_lifespan(_app):
     # Vercel functions are ephemeral; do not start SocialFlow's APScheduler here.
-    # The persistent worker will run separately once connected.
+    # The persistent worker runs separately.
     init_db()
     init_brand_tables()
     init_signals_table()

@@ -1,0 +1,220 @@
+name: Fix X OAuth UI
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  patch-x-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Replace credential-based X UI with OAuth
+        shell: python
+        run: |
+          from pathlib import Path
+          import re
+
+          path = Path('frontend/index.html')
+          text = path.read_text(encoding='utf-8')
+
+          start = text.find('        // Accounts Page')
+          end = text.find('        // Main App', start)
+          if start == -1 or end == -1:
+              raise SystemExit('Accounts component markers not found')
+
+          new_component = r'''        // Accounts Page
+        function Accounts({ accounts, onRefresh }) {
+            const [modal, setModal] = useState(null);
+            const [form, setForm] = useState({ username: '', password: '' });
+            const [loading, setLoading] = useState(false);
+            const [xStatus, setXStatus] = useState({ loading: true, connected: false, username: null });
+
+            const loadXStatus = async () => {
+                try {
+                    const status = await api.get('/x/status');
+                    setXStatus({
+                        loading: false,
+                        connected: !!status.connected,
+                        username: status.username || null
+                    });
+                } catch (e) {
+                    console.error('Failed to load X status:', e);
+                    setXStatus({ loading: false, connected: false, username: null });
+                }
+            };
+
+            useEffect(() => { loadXStatus(); }, []);
+
+            const connectX = () => {
+                window.location.assign('/api/x/connect');
+            };
+
+            const saveAccount = async () => {
+                if (!form.username || !form.password) return;
+                setLoading(true);
+                await api.post('/accounts', {
+                    platform: modal,
+                    username: form.username,
+                    password: form.password
+                });
+                setModal(null);
+                setForm({ username: '', password: '' });
+                setLoading(false);
+                onRefresh();
+            };
+
+            const login = async (platform) => {
+                setLoading(true);
+                const result = await api.post(`/accounts/${platform}/login`);
+                alert(result.message);
+                setLoading(false);
+                onRefresh();
+            };
+
+            const remove = async (platform) => {
+                if (confirm(`Disconnect ${platform}?`)) {
+                    await api.delete(`/accounts/${platform}`);
+                    onRefresh();
+                }
+            };
+
+            const platforms = [
+                { id: 'linkedin', name: 'LinkedIn', desc: 'Professional network' },
+                { id: 'instagram', name: 'Instagram', desc: 'Photo & video sharing' },
+                { id: 'twitter', name: 'X (Twitter)', desc: 'Connect securely with X OAuth 2.0' }
+            ];
+
+            return (
+                <div>
+                    <div className="header">
+                        <h1 className="page-title">Connected Accounts</h1>
+                    </div>
+
+                    <div className="card">
+                        <div className="card-title">🔐 Your Social Media Accounts</div>
+                        <p style={{ color: 'var(--text-muted)', marginBottom: '24px', fontSize: '14px' }}>
+                            Connect social platforms securely. X uses OAuth 2.0 — SocialFlow never asks for your X password.
+                        </p>
+
+                        {platforms.map(p => {
+                            const account = accounts.find(a => a.platform === p.id);
+                            const isX = p.id === 'twitter';
+                            const xConnected = isX && xStatus.connected;
+                            return (
+                                <div key={p.id} className="account-item">
+                                    <div className="account-info">
+                                        <div className={`account-icon ${p.id}`}>{icons[p.id]}</div>
+                                        <div>
+                                            <div className="account-name">{p.name}</div>
+                                            <div className={`account-status ${(xConnected || account?.is_logged_in) ? 'connected' : ''}`}>
+                                                {isX
+                                                    ? (xStatus.loading ? 'Checking connection…' : xConnected ? `● @${xStatus.username || 'connected'}` : p.desc)
+                                                    : (account ? (account.is_logged_in ? `● ${account.username}` : `○ ${account.username} (not logged in)`) : p.desc)
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="account-actions">
+                                        {isX ? (
+                                            <button className="btn btn-twitter" onClick={connectX} disabled={xStatus.loading}>
+                                                {xStatus.loading ? <div className="spinner" /> : xConnected ? '↻ Reconnect X' : '𝕏 Connect X'}
+                                            </button>
+                                        ) : account ? (
+                                            <>
+                                                {!account.is_logged_in && (
+                                                    <button className="btn btn-primary" onClick={() => login(p.id)} disabled={loading}>
+                                                        {loading ? <div className="spinner" /> : '🔓 Login'}
+                                                    </button>
+                                                )}
+                                                <button className="btn btn-danger" onClick={() => remove(p.id)}>Remove</button>
+                                            </>
+                                        ) : (
+                                            <button className={`btn btn-${p.id}`} onClick={() => setModal(p.id)}>
+                                                + Add Account
+                                            </button>
+                                        )}
+                                    </div>
+                                </div>
+                            );
+                        })}
+                    </div>
+
+                    <div className="card">
+                        <div className="card-title">💡 How It Works</div>
+                        <div style={{ color: 'var(--text-dim)', lineHeight: '1.8', fontSize: '14px' }}>
+                            <p><strong>1. Choose a platform</strong> - Connect it from this page</p>
+                            <p><strong>2. X uses OAuth</strong> - You authorize SocialFlow on X without giving SocialFlow your password</p>
+                            <p><strong>3. Complete verification</strong> - Handle any X security checks if prompted</p>
+                            <p><strong>4. You're connected!</strong> - SocialFlow can use the authorized account for posting</p>
+                            <br />
+                            <p style={{ color: 'var(--text-muted)' }}>
+                                🔒 X credentials are handled by X. SocialFlow does not request or store your X password.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Add Account Modal — only used by LinkedIn and Instagram */}
+                    {modal && (
+                        <div className="modal-overlay" onClick={() => setModal(null)}>
+                            <div className="modal" onClick={e => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <h2 className="modal-title">Add {modal.charAt(0).toUpperCase() + modal.slice(1)} Account</h2>
+                                    <button className="modal-close" onClick={() => setModal(null)}>✕</button>
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">{modal === 'instagram' ? 'Username' : 'Email'}</label>
+                                    <input
+                                        type="text"
+                                        className="form-input"
+                                        value={form.username}
+                                        onChange={e => setForm({ ...form, username: e.target.value })}
+                                        placeholder={modal === 'linkedin' ? 'email@example.com' : '@username'}
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label className="form-label">Password</label>
+                                    <input
+                                        type="password"
+                                        className="form-input"
+                                        value={form.password}
+                                        onChange={e => setForm({ ...form, password: e.target.value })}
+                                    />
+                                </div>
+
+                                <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+                                    <button className="btn btn-secondary" onClick={() => setModal(null)}>Cancel</button>
+                                    <button className="btn btn-primary" onClick={saveAccount} disabled={loading}>
+                                        {loading ? <div className="spinner" /> : '🔒 Save & Login'}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+'''
+
+          updated = text[:start] + new_component + text[end:]
+          path.write_text(updated, encoding='utf-8')
+
+      - name: Commit patched UI
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/index.html .github/workflows/fix-x-oauth-ui.yml
+          if git diff --cached --quiet; then
+            echo "No changes needed"
+            exit 0
+          fi
+          git commit -m "fix: make X account connection use OAuth"
+          git push

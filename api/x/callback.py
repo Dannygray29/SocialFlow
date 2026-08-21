@@ -5,21 +5,19 @@ import json
 import os
 import httpx
 from cryptography.fernet import Fernet
-from fastapi import HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import RedirectResponse
 
+app = FastAPI()
 X_TOKEN = "https://api.x.com/2/oauth2/token"
-
 
 def _secret():
     return os.getenv("SOCIALFLOW_SECRET_KEY", "").encode()
-
 
 def _fernet():
     if not _secret():
         return None
     return Fernet(base64.urlsafe_b64encode(hashlib.sha256(_secret()).digest()))
-
 
 def _verify_state(state):
     try:
@@ -32,8 +30,8 @@ def _verify_state(state):
     except Exception as exc:
         raise HTTPException(status_code=400, detail="Invalid OAuth state") from exc
 
-
-def handler(request: Request):
+@app.get("/")
+async def callback(request: Request):
     params = request.query_params
     error = params.get("error")
     if error:
@@ -48,32 +46,17 @@ def handler(request: Request):
     redirect_uri = os.getenv("X_REDIRECT_URI", "https://social-flow-nu.vercel.app/api/x/callback")
     if not client_id or not client_secret or not _fernet():
         raise HTTPException(status_code=503, detail="X OAuth credentials are not configured")
-
-    with httpx.Client(timeout=30) as client:
-        response = client.post(
+    async with httpx.AsyncClient(timeout=30) as client:
+        response = await client.post(
             X_TOKEN,
-            data={
-                "code": code,
-                "grant_type": "authorization_code",
-                "redirect_uri": redirect_uri,
-                "code_verifier": verifier,
-            },
+            data={"code": code, "grant_type": "authorization_code", "redirect_uri": redirect_uri, "code_verifier": verifier},
             auth=(client_id, client_secret),
             headers={"Content-Type": "application/x-www-form-urlencoded"},
         )
     if response.status_code != 200:
         raise HTTPException(status_code=502, detail="X token exchange failed")
-
     token = response.json()
     encrypted = _fernet().encrypt(json.dumps(token).encode()).decode()
     result = RedirectResponse("/?x_connected=true", status_code=302)
-    result.set_cookie(
-        "socialflow_x_token",
-        encrypted,
-        httponly=True,
-        secure=True,
-        samesite="lax",
-        max_age=60 * 60 * 24 * 180,
-        path="/",
-    )
+    result.set_cookie("socialflow_x_token", encrypted, httponly=True, secure=True, samesite="lax", max_age=60 * 60 * 24 * 180, path="/")
     return result

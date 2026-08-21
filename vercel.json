@@ -1,7 +1,11 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     { "source": "/", "destination": "/api/page" },
-    { "source": "/dashboard", "destination": "/api/page" }
+    { "source": "/dashboard", "destination": "/api/page" },
+    { "source": "/api/x/connect", "destination": "/api/x_connect" },
+    { "source": "/api/x/callback", "destination": "/api/x_callback" },
+    { "source": "/api/x/status", "destination": "/api/x_status" }
   ],
   "headers": [
     {

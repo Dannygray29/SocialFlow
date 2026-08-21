@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/", "destination": "/frontend/index.html" },
-    { "source": "/dashboard", "destination": "/frontend/index.html" }
+    { "source": "/", "destination": "/api/page" },
+    { "source": "/dashboard", "destination": "/api/page" }
   ],
   "headers": [
     {

@@ -1,176 +1,95 @@
-# SocialFlow
+# Akinola Ayomide Daniel — Professional Portfolio
 
-### AI-Powered Social Media Automation Platform
+**Aspiring Technology & AI Professional**
 
-SocialFlow is a self-hosted AI-assisted social-media automation project covering research, planning, content creation, review, scheduling, publishing, and analytics.
+Welcome to my professional GitHub portfolio. I use practical projects to demonstrate skills in AI, automation, software development, research, data organization, project workflows and digital operations.
 
-> **Portfolio project:** Maintained and extended by **Akinola Ayomide Daniel** as a technical portfolio project. This repository is fork-derived; the upstream project and its original contributors remain part of the project's history. My portfolio claims are limited to the changes and engineering work I personally make here.
+## 👤 About Me
 
-## Origin and attribution
+I am currently pursuing university education and building my professional track record through hands-on projects and continuous learning.
 
-This repository was forked from [`inbharatai/SocialFlow`](https://github.com/inbharatai/SocialFlow). It has been adapted for portfolio use with repository cleanup, documentation changes, security hardening, integrity checks, and ongoing engineering improvements.
+**Career interests:** AI & automation · Software development · Research · Data · Project coordination · Digital operations · Cybersecurity fundamentals
 
-This disclosure is intentional: **a fork is not presented as an original project from scratch.**
+## 📄 CV & Resume
 
-## Core workflow
+- **[Full CV](CV.md)** — education, skills, projects and professional profile
+- **[Resume](RESUME.md)** — concise version for job and internship applications
+- **[Professional Profile](PROFILE.md)** — career direction and working principles
+- **[Skills](SKILLS.md)** — technical, research and professional skills
+- **[Education](EDUCATION.md)** — education and development
+- **[Projects](PROJECTS.md)** — portfolio project index
 
-```text
-Scout → Planner → Creator → Reviewer → Publisher → Analyst
-```
+## 🚀 Featured Projects
 
-| Stage | Responsibility |
+### SocialFlow
+**AI-assisted social media automation platform**
+
+A technical project covering research, planning, content generation, review, scheduling, publishing and analytics.
+
+**Stack:** Python · FastAPI · SQLite · APScheduler · Playwright · AI provider integrations
+
+**What it demonstrates:** AI workflows, APIs, automation, OAuth/PKCE concepts, browser automation, persistence, security practices, testing and CI.
+
+> **Integrity disclosure:** This repository is fork-derived from `inbharatai/SocialFlow`. I do not claim the upstream project as my original creation. My portfolio claims are limited to the work and changes I personally make in this repository.
+
+### GreyVerse
+**Online gaming and esports platform**
+
+A project focused on player accounts, tournaments, leagues, rankings, rewards and match workflows.
+
+**Stack:** HTML · CSS · JavaScript · Supabase · web/mobile tooling
+
+## 🧠 Skills
+
+| Area | Skills / Technologies |
 |---|---|
-| **Scout** | Collects trends, feeds, and other content signals |
-| **Planner** | Turns signals into topics, platforms, formats, and publishing plans |
-| **Creator** | Generates platform-specific copy and creative assets |
-| **Reviewer** | Applies quality, brand, safety, and approval checks |
-| **Publisher** | Publishes approved content through configured integrations |
-| **Analyst** | Stores performance data and produces useful insights |
+| AI & Automation | AI-assisted workflows, automation, LLM experimentation |
+| Development | Python, JavaScript, HTML, CSS, FastAPI |
+| Data | SQLite, Supabase, data organization, documentation |
+| Research | Internet research, information gathering, source comparison |
+| Operations | Project coordination, workflow planning, digital operations |
+| Security | Environment variables, OAuth concepts, secret-management practices, cybersecurity fundamentals |
+| Collaboration | Git, GitHub, CI workflows |
 
-## Engineering highlights
+## 🎓 Education
 
-- AI provider abstraction for Ollama, OpenAI, Anthropic, and Gemini
-- FastAPI REST backend with OpenAPI/Swagger documentation
-- Multi-stage workflow orchestration with explicit content states
-- Scheduled automation support
-- Browser automation with Playwright
-- Platform-specific content generation
-- Brand-kit and asset-management features
-- Image/video workflow support
-- SQLite persistence for local/self-hosted deployments
-- Fernet encryption for locally stored platform credentials
-- X OAuth 2.0 flow with signed state and PKCE
-- Analytics and audit-oriented data storage
-- Vercel-compatible API entry point
-- CI integrity checks and Python compilation checks
+**University education — incoming undergraduate / currently pursuing university education**
 
-## Integrations
+No unsupported degrees or certifications are listed. Verified qualifications will be added when earned.
 
-The codebase contains integration logic for services including LinkedIn, X/Twitter, Facebook, Instagram, Discord, Reddit, Medium, Substack, HeyGen, beehiiv, MailerLite, and Brevo.
+## 💼 Experience
 
-**Important:** an integration existing in the repository does not mean its external account, API access, browser flow, credentials, or current platform policies are configured. Third-party interfaces can change. Verify each integration in the target environment before relying on it.
+My current professional evidence is primarily project-based. I do not represent independent projects as formal employment or claim professional experience that I have not completed.
 
-## Architecture
+## 📈 Portfolio Roadmap
 
-```text
-                         ┌───────────────┐
-                         │   Dashboard   │
-                         └───────┬───────┘
-                                 │
-                                 ▼
-                         ┌───────────────┐
-                         │  FastAPI API  │
-                         └───────┬───────┘
-                                 │
-                  ┌──────────────┼──────────────┐
-                  ▼              ▼              ▼
-             AI Providers   Pipeline Agents   SQLite
-                                 │
-                         Scout → Planner
-                                 ↓
-                              Creator
-                                 ↓
-                              Reviewer
-                                 ↓
-                             Publisher
-                                 ↓
-                              Analyst
-```
+Planned projects will be added only after genuine implementation and documentation:
 
-## API highlights
+- AI Research Lab
+- Recruitment Tracker
+- Project Management Dashboard
+- Travel Planner
+- Affiliate Campaign Tracker
 
-| Endpoint | Method | Purpose |
-|---|---:|---|
-| `/api/health` | GET | Server health check |
-| `/api/pipeline/run` | POST | Run the content pipeline |
-| `/api/pipeline/status` | GET | Read pipeline state |
-| `/api/pipeline/queue` | GET | View queued content |
-| `/api/pipeline/approve/{id}` | POST | Approve a draft |
-| `/api/pipeline/reject/{id}` | POST | Reject a draft |
-| `/api/pipeline/publish/{id}` | POST | Publish an approved item |
-| `/api/pipeline/signals` | GET | Read discovery signals |
-| `/api/pipeline/analytics` | GET | Read analytics |
-| `/api/brand/config` | GET/PUT | Manage brand settings |
-| `/api/accounts` | GET/POST | Manage connected accounts |
-| `/api/posts` | GET/POST | Manage posts |
-| `/docs` | GET | Swagger/OpenAPI documentation |
+Each project should include a problem statement, implemented features, technology stack, evidence/demo, setup instructions, tests and known limitations.
 
-## Security model
+## 🔐 Integrity & Security
 
-- Secrets are supplied through environment variables and excluded from Git.
-- `.env`, generated encryption keys, databases, browser sessions, uploads, and logs are ignored by Git.
-- Platform credentials handled by the application are encrypted with Fernet at rest.
-- X uses OAuth 2.0 with PKCE rather than requesting an X password.
-- Publishing can be gated by approval/rejection workflow states.
-- CI checks the repository for common accidentally committed API-key patterns.
+This portfolio follows a simple rule: **claim what can be demonstrated and verified.**
 
-**Never commit API keys, OAuth client secrets, passwords, cookies, browser profiles, session files, `.secret_key`, or real user data.** If a real secret is ever exposed, rotate it immediately; deleting the file alone is not sufficient.
+- No real credentials or secrets belong in this repository.
+- Forked/adapted work is clearly attributed.
+- Project status is reported honestly.
+- Automated tests are not presented as proof of complete production readiness.
+- Employment, education and certification claims are not invented.
 
-See [`SECURITY.md`](SECURITY.md) for the repository security policy.
+See **[SECURITY.md](SECURITY.md)** for repository security guidance.
 
-## Quick start
+## 📫 Contact
 
-```bash
-git clone https://github.com/Dannygray29/SocialFlow.git
-cd SocialFlow/backend
-python3 -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-playwright install chromium
-python main.py
-```
+**Akinola Ayomide Daniel**  
+GitHub: [Dannygray29](https://github.com/Dannygray29)
 
-Then open `http://localhost:8000` and use `/docs` for the API documentation.
+---
 
-For local AI, configure `.env` using the supplied `.env.example`:
-
-```env
-AI_PROVIDER=ollama
-OLLAMA_URL=http://127.0.0.1:11434
-OLLAMA_MODEL=qwen3:8b
-HEADLESS=false
-```
-
-## Development checks
-
-The repository includes automated integrity checks under `tests/` and GitHub Actions.
-
-```bash
-pip install pytest
-pytest -q
-python -m compileall -q backend api
-```
-
-The checks validate required project files, Python syntax, and obvious credential patterns. They are smoke/integrity checks—not a claim of complete end-to-end verification of every external social platform.
-
-## Technology stack
-
-- Python 3
-- FastAPI
-- SQLite
-- APScheduler
-- Playwright / Chromium
-- React-based browser frontend
-- HTTPX
-- Pydantic
-- Fernet cryptography
-- Ollama / OpenAI / Anthropic / Gemini
-- Pillow
-- FFmpeg
-- GitHub Actions
-
-## Skills demonstrated
-
-This project demonstrates practical work in AI application architecture, LLM integration, REST APIs, Python backend engineering, browser automation, OAuth/PKCE, credential handling, workflow orchestration, database persistence, scheduled jobs, analytics, testing, CI, and product-focused problem solving.
-
-## Integrity standard
-
-**Goal: production-quality engineering discipline with honest status reporting.**
-
-A green CI run means the repository's automated smoke checks passed. It does **not** mean every external API, browser selector, credential configuration, or deployment environment is guaranteed to work. SocialFlow intentionally documents that distinction rather than making unsupported 100% claims.
-
-## Author / maintainer
-
-**Akinola Ayomide Daniel**
-
-Portfolio maintainer focused on AI, automation, software engineering, cybersecurity, and practical digital products.
+*This repository is a living professional portfolio and will be updated as new, verified work is completed.*

@@ -1,24 +1,41 @@
 # Python
 __pycache__/
 *.py[cod]
+*.pyo
 *.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
 dist/
 build/
 .venv/
 venv/
+ENV/
 
-# Environment
+# Environment and secrets
 .env
+.env.*
+!.env.example
 .secret_key
+*.pem
+*.key
+*.crt
 
-# Database
+# Local database / runtime state
 *.db
-
-# Sessions & uploads
+*.sqlite
+*.sqlite3
 sessions/
 uploads/
 
-# IDE
+# Generated media / caches
+*.log
+*.tmp
+*.cache
+playwright-report/
+test-results/
+
+# IDE / editor
 .vscode/
 .idea/
 *.swp
@@ -29,5 +46,8 @@ uploads/
 Thumbs.db
 desktop.ini
 
-# Node
+# Node / frontend tooling
 node_modules/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*

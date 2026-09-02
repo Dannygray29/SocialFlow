@@ -2,55 +2,47 @@
 
 ### AI-Powered Social Media Automation Platform
 
-SocialFlow is a self-hosted social media automation project designed to turn a content idea or emerging trend into a structured workflow for research, planning, creation, review, publishing, and analytics.
+SocialFlow is an independent, self-hosted portfolio project for researching, planning, creating, reviewing, scheduling, publishing, and analyzing social-media content through an AI-assisted workflow.
 
-> **Portfolio project:** Built as an independent software project to demonstrate practical skills in AI integration, automation, backend development, API design, security, and product engineering.
+> **Portfolio project:** Built by **Akinola Ayomide Daniel** to demonstrate practical software-engineering skills. It is not presented as commercial employment, client work, or proof that every third-party integration is production-ready.
 
-## What it does
-
-SocialFlow is organized around a six-stage content pipeline:
+## Core workflow
 
 ```text
 Scout → Planner → Creator → Reviewer → Publisher → Analyst
 ```
 
-| Agent | Responsibility |
+| Stage | Responsibility |
 |---|---|
-| **Scout** | Discovers news, trends, feeds, and relevant signals |
-| **Planner** | Selects topics, platforms, formats, and publishing plans |
-| **Creator** | Generates platform-specific content and creative assets |
-| **Reviewer** | Applies quality, brand, safety, and claim checks |
-| **Publisher** | Publishes approved content through supported integrations |
-| **Analyst** | Collects performance information and produces insights |
+| **Scout** | Collects trends, feeds, and other content signals |
+| **Planner** | Turns signals into topics, platforms, formats, and publishing plans |
+| **Creator** | Generates platform-specific copy and creative assets |
+| **Reviewer** | Applies quality, brand, safety, and approval checks |
+| **Publisher** | Publishes approved content through configured integrations |
+| **Analyst** | Stores performance data and produces useful insights |
 
-## Key capabilities
+## Engineering highlights
 
-- AI-assisted content generation
-- Multi-provider AI support
-- Autonomous content pipeline orchestration
-- Scheduled content workflows
-- Draft, approval, rejection, and publishing states
-- Brand-kit configuration
-- Platform-specific content generation
-- Image and carousel generation
-- Video/reel workflow support
+- AI provider abstraction for Ollama, OpenAI, Anthropic, and Gemini
+- FastAPI REST backend with OpenAPI/Swagger documentation
+- Multi-stage workflow orchestration with explicit content states
+- Scheduled automation support
 - Browser automation with Playwright
-- Local SQLite persistence
-- Encrypted credential storage
-- Analytics and reporting
-- REST API with interactive documentation
-- Local/self-hosted deployment
-
-## AI providers
-
-- **Ollama** — local AI inference
-- **OpenAI** — API-based generation
-- **Anthropic** — API-based generation
-- **Google Gemini** — API-based generation
+- Platform-specific content generation
+- Brand-kit and asset-management features
+- Image/video workflow support
+- SQLite persistence for local/self-hosted deployments
+- Fernet encryption for locally stored platform credentials
+- X OAuth 2.0 flow with signed state and PKCE
+- Analytics and audit-oriented data storage
+- Vercel-compatible API entry point
+- CI integrity checks and Python compilation checks
 
 ## Integrations
 
-The repository contains integrations/workflows for services including LinkedIn, X/Twitter, Facebook, Instagram, Discord, Reddit, Medium, Substack, HeyGen, beehiiv, MailerLite, and Brevo. Availability and authentication requirements vary by integration and deployment configuration.
+The codebase contains integration logic for services including LinkedIn, X/Twitter, Facebook, Instagram, Discord, Reddit, Medium, Substack, HeyGen, beehiiv, MailerLite, and Brevo.
+
+**Important:** an integration existing in the repository does not mean its external account, API access, browser flow, credentials, or current platform policies are configured. Third-party interfaces can change. Verify each integration in the target environment before relying on it.
 
 ## Architecture
 
@@ -84,28 +76,31 @@ The repository contains integrations/workflows for services including LinkedIn, 
 | Endpoint | Method | Purpose |
 |---|---:|---|
 | `/api/health` | GET | Server health check |
-| `/api/pipeline/run` | POST | Run the autonomous pipeline |
+| `/api/pipeline/run` | POST | Run the content pipeline |
 | `/api/pipeline/status` | GET | Read pipeline state |
-| `/api/pipeline/queue` | GET | View content queue |
+| `/api/pipeline/queue` | GET | View queued content |
 | `/api/pipeline/approve/{id}` | POST | Approve a draft |
 | `/api/pipeline/reject/{id}` | POST | Reject a draft |
-| `/api/pipeline/publish/{id}` | POST | Publish a specific item |
+| `/api/pipeline/publish/{id}` | POST | Publish an approved item |
 | `/api/pipeline/signals` | GET | Read discovery signals |
-| `/api/pipeline/analytics` | GET | Read performance analytics |
+| `/api/pipeline/analytics` | GET | Read analytics |
 | `/api/brand/config` | GET/PUT | Manage brand settings |
 | `/api/accounts` | GET/POST | Manage connected accounts |
 | `/api/posts` | GET/POST | Manage posts |
 | `/docs` | GET | Swagger/OpenAPI documentation |
 
-## Security
+## Security model
 
-- Platform credentials are encrypted locally using Fernet.
-- Secrets should be supplied through environment variables rather than committed to Git.
-- Browser sessions remain in the local deployment environment.
-- Approval gates can stop content before publication.
-- Actions can be recorded for auditing.
+- Secrets are supplied through environment variables and excluded from Git.
+- `.env`, generated encryption keys, databases, browser sessions, uploads, and logs are ignored by Git.
+- Platform credentials handled by the application are encrypted with Fernet at rest.
+- X uses OAuth 2.0 with PKCE rather than requesting an X password.
+- Publishing can be gated by approval/rejection workflow states.
+- CI checks the repository for common accidentally committed API-key patterns.
 
-**Never commit `.env`, API keys, passwords, browser session data, private credentials, or generated secret keys.**
+**Never commit API keys, OAuth client secrets, passwords, cookies, browser profiles, session files, `.secret_key`, or real user data.** If a real secret is ever exposed, rotate it immediately; deleting the file alone is not sufficient.
+
+See [`SECURITY.md`](SECURITY.md) for the repository security policy.
 
 ## Quick start
 
@@ -119,7 +114,9 @@ playwright install chromium
 python main.py
 ```
 
-Configure a local `.env` file. For local AI:
+Then open `http://localhost:8000` and use `/docs` for the API documentation.
+
+For local AI, configure `.env` using the supplied `.env.example`:
 
 ```env
 AI_PROVIDER=ollama
@@ -128,7 +125,17 @@ OLLAMA_MODEL=qwen3:8b
 HEADLESS=false
 ```
 
-FastAPI documentation is available at `/docs` after the server starts.
+## Development checks
+
+The repository includes automated integrity checks under `tests/` and GitHub Actions.
+
+```bash
+pip install pytest
+pytest -q
+python -m compileall -q backend api
+```
+
+The checks validate that required project files exist, Python sources parse successfully, and obvious credential patterns are not committed. These are smoke/integrity checks—not a claim of complete end-to-end verification of every external social platform.
 
 ## Technology stack
 
@@ -137,28 +144,31 @@ FastAPI documentation is available at `/docs` after the server starts.
 - SQLite
 - APScheduler
 - Playwright / Chromium
-- React-based frontend
+- React-based browser frontend
 - HTTPX
 - Pydantic
 - Fernet cryptography
 - Ollama / OpenAI / Anthropic / Gemini
 - Pillow
 - FFmpeg
+- GitHub Actions
 
 ## Skills demonstrated
 
-This project demonstrates practical work with AI application architecture, LLM integration, REST APIs, Python backend engineering, browser automation, workflow orchestration, database design, credential security, scheduled jobs, analytics pipelines, and product-focused problem solving.
+This project demonstrates practical work in AI application architecture, LLM integration, REST APIs, Python backend engineering, browser automation, OAuth/PKCE, credential handling, workflow orchestration, database persistence, scheduled jobs, analytics, testing, CI, and product-focused problem solving.
 
-## Development status
+## Integrity standard
 
-SocialFlow is an actively developed portfolio project. Third-party platforms can change their APIs, authentication flows, or usage policies, so individual integrations may require maintenance. The application and tests should be run to verify the current state rather than assuming every integration is configured in every environment.
+**Goal: production-quality engineering discipline, with honest status reporting.**
+
+A green CI run means the repository's automated smoke checks passed. It does **not** mean every external API, browser selector, credential configuration, or deployment environment is guaranteed to work. SocialFlow intentionally documents that distinction rather than making unsupported 100% claims.
 
 ## License
 
-MIT License.
+MIT License — see [`LICENSE`](LICENSE).
 
 ## Author
 
 **Akinola Ayomide Daniel**
 
-Independent developer interested in AI, automation, software engineering, cybersecurity, digital products, and practical technology solutions.
+Independent developer building practical projects in AI, automation, software engineering, cybersecurity, and digital products.

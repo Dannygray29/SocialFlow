@@ -1,6 +1,6 @@
 # Security Policy
 
-SocialFlow is an independent portfolio project. Do not use real production credentials or personal account sessions while testing it.
+SocialFlow is a fork-derived portfolio project maintained by Akinola Ayomide Daniel. Do not use real production credentials or personal account sessions while testing it.
 
 ## Reporting a vulnerability
 
@@ -14,4 +14,4 @@ Please do not publish credentials, session files, access tokens, or other sensit
 - Treat browser automation credentials as sensitive even when encrypted at rest.
 - Rotate any credential that may have been exposed.
 
-The repository's CI includes lightweight checks for common accidentally committed API-key patterns. Those checks are not a substitute for secret scanning or a security review before production use.
+The repository's CI includes lightweight checks for common accidentally committed API-key patterns. Those checks are not a substitute for secret scanning, dependency auditing, or a security review before production use.

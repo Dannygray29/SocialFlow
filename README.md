@@ -2,9 +2,15 @@
 
 ### AI-Powered Social Media Automation Platform
 
-SocialFlow is an independent, self-hosted portfolio project for researching, planning, creating, reviewing, scheduling, publishing, and analyzing social-media content through an AI-assisted workflow.
+SocialFlow is a self-hosted AI-assisted social-media automation project covering research, planning, content creation, review, scheduling, publishing, and analytics.
 
-> **Portfolio project:** Built by **Akinola Ayomide Daniel** to demonstrate practical software-engineering skills. It is not presented as commercial employment, client work, or proof that every third-party integration is production-ready.
+> **Portfolio project:** Maintained and extended by **Akinola Ayomide Daniel** as a technical portfolio project. This repository is fork-derived; the upstream project and its original contributors remain part of the project's history. My portfolio claims are limited to the changes and engineering work I personally make here.
+
+## Origin and attribution
+
+This repository was forked from [`inbharatai/SocialFlow`](https://github.com/inbharatai/SocialFlow). It has been adapted for portfolio use with repository cleanup, documentation changes, security hardening, integrity checks, and ongoing engineering improvements.
+
+This disclosure is intentional: **a fork is not presented as an original project from scratch.**
 
 ## Core workflow
 
@@ -135,7 +141,7 @@ pytest -q
 python -m compileall -q backend api
 ```
 
-The checks validate that required project files exist, Python sources parse successfully, and obvious credential patterns are not committed. These are smoke/integrity checks—not a claim of complete end-to-end verification of every external social platform.
+The checks validate required project files, Python syntax, and obvious credential patterns. They are smoke/integrity checks—not a claim of complete end-to-end verification of every external social platform.
 
 ## Technology stack
 
@@ -159,16 +165,12 @@ This project demonstrates practical work in AI application architecture, LLM int
 
 ## Integrity standard
 
-**Goal: production-quality engineering discipline, with honest status reporting.**
+**Goal: production-quality engineering discipline with honest status reporting.**
 
 A green CI run means the repository's automated smoke checks passed. It does **not** mean every external API, browser selector, credential configuration, or deployment environment is guaranteed to work. SocialFlow intentionally documents that distinction rather than making unsupported 100% claims.
 
-## License
-
-MIT License — see [`LICENSE`](LICENSE).
-
-## Author
+## Author / maintainer
 
 **Akinola Ayomide Daniel**
 
-Independent developer building practical projects in AI, automation, software engineering, cybersecurity, and digital products.
+Portfolio maintainer focused on AI, automation, software engineering, cybersecurity, and practical digital products.

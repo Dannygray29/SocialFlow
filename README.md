@@ -1,158 +1,164 @@
-# SocialFlow — AI-Powered Autonomous Social Media CMO
+# SocialFlow
 
-Self-hosted, open-source AI CMO that handles everything from news discovery to content generation, scheduling, and publishing across 12 platforms. Add your social media logins once, and AI handles the rest.
+### AI-Powered Social Media Automation Platform
 
-**No monthly fees. No API limits on content. Your data stays on your machine.**
+SocialFlow is a self-hosted social media automation project designed to turn a content idea or emerging trend into a structured workflow for research, planning, creation, review, publishing, and analytics.
 
-## Why SocialFlow?
+> **Portfolio project:** Built as an independent software project to demonstrate practical skills in AI integration, automation, backend development, API design, security, and product engineering.
 
-| Feature | SocialRails ($29-99/mo) | SocialFlow (FREE) |
-|---------|------------------------|-------------------|
-| Platforms | 9 | 12 (+ Discord, Reddit, Medium, Substack) |
-| AI content | Capped (20-250/mo) | Unlimited (Ollama local AI) |
-| Image gen | Monthly cap | GPT Image 1.5 (pay-per-use ~$0.02) |
-| Content pipeline | Manual | Autonomous (AI finds, writes, posts) |
-| Multi-agent | No | 6 agents (Scout, Planner, Creator, Reviewer, Publisher, Analyst) |
-| Brand kit | Basic | Full (colors, logo, fonts, tone, forbidden styles) |
-| Approval gates | No | Credential safety, brand voice, claim validation |
-| Data ownership | Their cloud | Your machine, encrypted locally |
-| Source code | Closed | Open-source |
+## What it does
 
-## Quick Start
+SocialFlow is organized around a six-stage content pipeline:
+
+```text
+Scout → Planner → Creator → Reviewer → Publisher → Analyst
+```
+
+| Agent | Responsibility |
+|---|---|
+| **Scout** | Discovers news, trends, feeds, and relevant signals |
+| **Planner** | Selects topics, platforms, formats, and publishing plans |
+| **Creator** | Generates platform-specific content and creative assets |
+| **Reviewer** | Applies quality, brand, safety, and claim checks |
+| **Publisher** | Publishes approved content through supported integrations |
+| **Analyst** | Collects performance information and produces insights |
+
+## Key capabilities
+
+- AI-assisted content generation
+- Multi-provider AI support
+- Autonomous content pipeline orchestration
+- Scheduled content workflows
+- Draft, approval, rejection, and publishing states
+- Brand-kit configuration
+- Platform-specific content generation
+- Image and carousel generation
+- Video/reel workflow support
+- Browser automation with Playwright
+- Local SQLite persistence
+- Encrypted credential storage
+- Analytics and reporting
+- REST API with interactive documentation
+- Local/self-hosted deployment
+
+## AI providers
+
+- **Ollama** — local AI inference
+- **OpenAI** — API-based generation
+- **Anthropic** — API-based generation
+- **Google Gemini** — API-based generation
+
+## Integrations
+
+The repository contains integrations/workflows for services including LinkedIn, X/Twitter, Facebook, Instagram, Discord, Reddit, Medium, Substack, HeyGen, beehiiv, MailerLite, and Brevo. Availability and authentication requirements vary by integration and deployment configuration.
+
+## Architecture
+
+```text
+                         ┌───────────────┐
+                         │   Dashboard   │
+                         └───────┬───────┘
+                                 │
+                                 ▼
+                         ┌───────────────┐
+                         │  FastAPI API  │
+                         └───────┬───────┘
+                                 │
+                  ┌──────────────┼──────────────┐
+                  ▼              ▼              ▼
+             AI Providers   Pipeline Agents   SQLite
+                                 │
+                         Scout → Planner
+                                 ↓
+                              Creator
+                                 ↓
+                              Reviewer
+                                 ↓
+                             Publisher
+                                 ↓
+                              Analyst
+```
+
+## API highlights
+
+| Endpoint | Method | Purpose |
+|---|---:|---|
+| `/api/health` | GET | Server health check |
+| `/api/pipeline/run` | POST | Run the autonomous pipeline |
+| `/api/pipeline/status` | GET | Read pipeline state |
+| `/api/pipeline/queue` | GET | View content queue |
+| `/api/pipeline/approve/{id}` | POST | Approve a draft |
+| `/api/pipeline/reject/{id}` | POST | Reject a draft |
+| `/api/pipeline/publish/{id}` | POST | Publish a specific item |
+| `/api/pipeline/signals` | GET | Read discovery signals |
+| `/api/pipeline/analytics` | GET | Read performance analytics |
+| `/api/brand/config` | GET/PUT | Manage brand settings |
+| `/api/accounts` | GET/POST | Manage connected accounts |
+| `/api/posts` | GET/POST | Manage posts |
+| `/docs` | GET | Swagger/OpenAPI documentation |
+
+## Security
+
+- Platform credentials are encrypted locally using Fernet.
+- Secrets should be supplied through environment variables rather than committed to Git.
+- Browser sessions remain in the local deployment environment.
+- Approval gates can stop content before publication.
+- Actions can be recorded for auditing.
+
+**Never commit `.env`, API keys, passwords, browser session data, private credentials, or generated secret keys.**
+
+## Quick start
 
 ```bash
-cd backend
+git clone https://github.com/Dannygray29/SocialFlow.git
+cd SocialFlow/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 playwright install chromium
 python main.py
-# Dashboard at http://localhost:8000
 ```
 
-## Architecture: 6-Agent Autonomous Pipeline
-
-```
-Scout → Planner → Creator → Reviewer → Publisher → Analyst
-```
-
-| Agent | Role | Schedule |
-|-------|------|----------|
-| **Scout** | Fetch AI news (HN, RSS), scan GitHub repos, detect trends | 8 AM, 2 PM, 8 PM |
-| **Planner** | Decide what to post, which platform, what format, when | After Scout |
-| **Creator** | Generate platform-specific content + branded images | After Planner |
-| **Reviewer** | Quality gates: credential safety, brand voice, claims | After Creator |
-| **Publisher** | Post via Playwright browser automation or API | 11 AM, 11 PM |
-| **Analyst** | Track performance, generate reports, feed insights back | End of day |
-
-## Supported Platforms (12)
-
-| Platform | Method | Auth |
-|----------|--------|------|
-| LinkedIn | Playwright browser | Session persist |
-| X / Twitter | Playwright browser | Session persist |
-| Facebook | Playwright browser | Session persist |
-| Instagram | Playwright browser | Session persist |
-| Discord | Webhook (HTTP) | Webhook URL |
-| Reddit | PRAW API | OAuth credentials |
-| Medium | Playwright browser | Session persist |
-| Substack | Playwright browser | Session persist |
-| HeyGen | Playwright browser | Session persist |
-| beehiiv | Playwright browser | Session persist |
-| MailerLite | Playwright browser | Session persist |
-| Brevo | Playwright browser | Session persist |
-
-## AI Providers
-
-| Provider | Cost | Setup |
-|----------|------|-------|
-| **Ollama** (default) | FREE | `ollama serve` + `ollama pull qwen3:8b` |
-| OpenAI | Pay-per-use | Add `OPENAI_API_KEY` to `.env` |
-| Anthropic | Pay-per-use | Add `ANTHROPIC_API_KEY` to `.env` |
-| Google Gemini | Free tier | Add `GEMINI_API_KEY` to `.env` |
-
-## Image Generation
-
-Uses **GPT Image 1.5** (OpenAI's latest, replaces deprecated DALL-E 3):
-- 75% cheaper than DALL-E 3 (~$0.015-0.020 per image)
-- Brand-aware: auto-injects your colors, fonts, and style rules
-- Platform-optimized sizes (landscape for LinkedIn/X, square for IG, portrait for stories)
-- Carousel generation: 5-slide branded carousels via Pillow
-
-## Brand Kit
-
-Configure your brand identity from the dashboard:
-- **Colors**: Primary, secondary, dark background, accents
-- **Logo**: Upload once, auto-applied to carousels and watermarks
-- **Typography**: Font family, heading/body weights
-- **Tone**: AI content follows your voice ("clear, direct, practical")
-- **Forbidden styles**: Block unwanted aesthetics in image generation
-- **Hashtags**: Platform-specific hashtag presets
-- **CTAs**: Reusable call-to-action templates
-- **Products**: Auto-link insertion for your product URLs
-
-## API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/api/health` | GET | Server health check |
-| `/api/pipeline/run` | POST | Trigger full autonomous pipeline |
-| `/api/pipeline/status` | GET | Current pipeline state |
-| `/api/pipeline/queue` | GET | Content queue (drafts, approved, posted) |
-| `/api/pipeline/approve/{id}` | POST | Approve a draft post |
-| `/api/pipeline/reject/{id}` | POST | Reject a post |
-| `/api/pipeline/publish/{id}` | POST | Publish a specific post now |
-| `/api/pipeline/signals` | GET | Intelligence signals from Scout |
-| `/api/pipeline/analytics` | GET | Daily/weekly performance stats |
-| `/api/brand/config` | GET/PUT | Brand kit configuration |
-| `/api/brand/logo` | POST | Upload brand logo |
-| `/api/brand/colors` | GET | Brand color palette |
-| `/api/accounts` | GET/POST | Manage platform credentials |
-| `/api/posts` | GET/POST | Manage posts |
-| `/api/openclaw/publish` | POST | Bridge API for external pipelines |
-| `/docs` | GET | Interactive Swagger API docs |
-
-## Security
-
-- Credentials encrypted with **Fernet (AES-128-CBC)** — stored locally, never transmitted
-- Browser sessions persisted in local `sessions/` directory
-- Approval gates catch credential/PII leaks before publishing
-- All actions logged with timestamps for audit trail
-- No cloud dependency — everything runs on your machine
-
-## Configuration
-
-Copy `.env.example` to `.env` and configure:
+Configure a local `.env` file. For local AI:
 
 ```env
-AI_PROVIDER=ollama              # ollama (free), openai, anthropic, gemini
+AI_PROVIDER=ollama
 OLLAMA_URL=http://127.0.0.1:11434
 OLLAMA_MODEL=qwen3:8b
-IMAGE_MODEL=gpt-image-1.5      # Replaces deprecated DALL-E 3
-OPENAI_API_KEY=                 # Only needed for image generation
-HEADLESS=false                  # true for server mode (no browser windows)
+HEADLESS=false
 ```
 
-## Schedule (Automatic)
+FastAPI documentation is available at `/docs` after the server starts.
 
-| Time | What Happens |
-|------|-------------|
-| 8:07 AM | Full pipeline: news fetch → content generation → review |
-| 11:00 AM | Publish approved LinkedIn + X posts |
-| 2:00 PM | Afternoon news refresh |
-| 11:00 PM | Publish remaining approved posts |
-| 11:30 PM | Daily analytics report |
+## Technology stack
 
-## Tech Stack
+- Python 3
+- FastAPI
+- SQLite
+- APScheduler
+- Playwright / Chromium
+- React-based frontend
+- HTTPX
+- Pydantic
+- Fernet cryptography
+- Ollama / OpenAI / Anthropic / Gemini
+- Pillow
+- FFmpeg
 
-- **Backend**: Python 3, FastAPI, SQLite, APScheduler
-- **Browser Automation**: Playwright (Chromium)
-- **AI**: Ollama (local), OpenAI, Anthropic, Google Gemini
-- **Images**: GPT Image 1.5, Pillow (carousels)
-- **Video**: FFmpeg (reels), HeyGen (avatar videos)
-- **Frontend**: React (single HTML), Tailwind-inspired CSS
-- **Security**: Fernet encryption, local-only credentials
+## Skills demonstrated
+
+This project demonstrates practical work with AI application architecture, LLM integration, REST APIs, Python backend engineering, browser automation, workflow orchestration, database design, credential security, scheduled jobs, analytics pipelines, and product-focused problem solving.
+
+## Development status
+
+SocialFlow is an actively developed portfolio project. Third-party platforms can change their APIs, authentication flows, or usage policies, so individual integrations may require maintenance. The application and tests should be run to verify the current state rather than assuming every integration is configured in every environment.
 
 ## License
 
-MIT License. Built by [InBharat AI](https://inbharat.ai).
+MIT License.
+
+## Author
+
+**Akinola Ayomide Daniel**
+
+Independent developer interested in AI, automation, software engineering, cybersecurity, digital products, and practical technology solutions.

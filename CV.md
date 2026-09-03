@@ -1,6 +1,6 @@
 # AKINOLA AYOMIDE DANIEL
 
-**Technology & AI | Research | Automation | Digital Operations**
+**AI-Assisted Technology | Digital Products | Research | Automation | Digital Operations**
 
 GitHub: https://github.com/Dannygray29  
 Location: Nigeria  
@@ -10,110 +10,122 @@ Availability: Entry-level roles, internships, apprenticeships and project-based 
 
 ## PROFESSIONAL PROFILE
 
-Aspiring technology and AI professional with a strong project-based portfolio spanning AI-assisted automation, software development, research, data organization, workflow design and digital operations. I learn by building practical systems, documenting technical work and testing implementations rather than relying only on theoretical knowledge.
+Aspiring technology professional building practical digital projects through self-directed learning, AI-assisted development, research and experimentation. Interested in AI, digital products, automation, research, data and digital operations.
 
-Currently pursuing university education and actively developing a professional foundation in AI, software engineering, research, project coordination and digital products. Particularly interested in opportunities where analytical thinking, technology and continuous learning can create measurable value.
+My current development workflow makes extensive use of AI tools for research, ideation, coding assistance, prototyping, debugging, testing support and documentation. I direct project requirements and use AI to help translate ideas into working digital projects while continuing to develop my underlying technical knowledge.
 
-## CORE COMPETENCIES
+I currently have no formal professional work experience. My portfolio therefore focuses on independently developed project experience, learning, experimentation, problem solving and verifiable work rather than employment claims.
 
-**AI & Automation** — AI-assisted workflows, LLM experimentation, content automation, workflow orchestration, API-based automation
+## CORE CAPABILITIES
 
-**Software Development** — Python, JavaScript, HTML, CSS, FastAPI, REST APIs, SQLite
+**AI-Assisted Project Development** — Using AI tools for coding assistance, debugging, research, prototyping, testing support and documentation; translating requirements into digital projects; iterative development and learning unfamiliar technologies with AI assistance.
 
-**Research & Data** — Internet research, information gathering, source comparison, structured data organization, documentation
+**Digital Product Development** — Turning ideas into practical projects, organizing requirements, exploring web applications, planning features, testing ideas and iterating on digital products.
 
-**Project & Operations** — Workflow planning, project coordination, task organization, process documentation, digital operations
+**Technology Research** — Internet research, AI-assisted research, information gathering, source comparison, technical exploration and documentation.
 
-**Digital & Customer Workflows** — Content operations, digital marketing concepts, customer-focused workflow design, travel-service workflow concepts
+**Problem Solving & Troubleshooting** — Identifying problems, breaking requirements into manageable tasks, investigating solutions, troubleshooting with AI tools, testing solutions and iterating.
 
-**Development Practices** — Git, GitHub, CI workflows, environment variables, OAuth concepts, secret-management practices, testing and technical documentation
+**Digital Operations & Automation** — Exploring digital workflows, automation concepts, online tools, content workflows and process organization.
+
+**Learning & Adaptability** — Self-directed learning, experimentation, curiosity, learning unfamiliar technologies with AI assistance and continuous improvement.
+
+**Project Organization & Documentation** — Organizing requirements and features, GitHub project organization, documentation, technical notes and structured workflow management.
+
+## TECHNOLOGIES USED OR EXPLORED THROUGH AI-ASSISTED PROJECTS
+
+The following technologies have been encountered or used while building and experimenting with projects. They should not be interpreted as claims of professional programming proficiency.
+
+**Development:** Python, JavaScript, HTML, CSS, FastAPI  
+**Data & Backend:** SQLite, Supabase, REST APIs  
+**AI:** AI/LLM provider integrations, Ollama and AI workflow experimentation  
+**Automation:** APScheduler, Playwright and workflow automation concepts  
+**Collaboration:** Git, GitHub, GitHub Actions and CI workflows  
+**Security concepts:** Environment variables, OAuth/PKCE concepts, secret-management practices and secure repository practices
 
 ## SELECTED PROJECT EXPERIENCE
 
 ### SocialFlow — AI-Assisted Social Media Automation
-**Focus:** AI automation, software engineering and digital operations
+**Personal / Independent Project**
 
-A self-hosted AI-assisted social-media automation project covering research, planning, content creation, review, scheduling, publishing and analytics.
+A self-hosted social-media automation project covering research, planning, content generation, review, scheduling, publishing and analytics.
 
-**Technical exposure:** Python, FastAPI, SQLite, APScheduler, Playwright, AI provider integrations, REST APIs, OAuth/PKCE concepts, credential protection, CI and automated integrity checks.
+**Technologies encountered:** Python, FastAPI, SQLite, APScheduler, Playwright, AI provider integrations, REST APIs, OAuth/PKCE concepts, GitHub Actions and automated integrity checks.
 
-**Demonstrated capabilities:** workflow architecture, backend development, automation, API integration, documentation, testing and repository security practices.
+**Project evidence:** AI-assisted workflow experimentation, automation concepts, repository organization, documentation, testing support and security-focused improvements.
 
-**Attribution:** This repository is fork-derived from `inbharatai/SocialFlow`. The upstream project and original contributors remain part of its history. My portfolio claims are limited to changes and engineering work personally performed in this repository.
+**Attribution:** This repository is fork-derived from `inbharatai/SocialFlow`. The upstream project and original contributors remain part of its history. My portfolio does not claim the upstream project as entirely original; claims are limited to work and changes personally performed in this repository.
 
 ### GreyVerse — Online Gaming & Esports Platform
-**Focus:** product development, backend data workflows and online gaming systems
+**Personal / Independent Project — Under Development**
 
-An active project focused on player accounts, tournaments, leagues, rankings, rewards, match management and related gaming workflows.
+A project focused on player accounts, tournaments, leagues, rankings, rewards, match management and related gaming workflows.
 
-**Technical exposure:** HTML, CSS, JavaScript, Supabase and web/mobile development tooling.
+**Technologies encountered:** HTML, CSS, JavaScript, Supabase and web/mobile development tooling.
 
-**Demonstrated capabilities:** product workflow design, database-backed application concepts, authentication, structured data and feature planning.
+**Project focus:** Product workflow design, database-backed application concepts, authentication, structured data and feature planning.
+
+The project is presented as work under development and is not described as fully production-ready unless independently verified.
+
+## INDEPENDENT PROJECT & LEARNING EXPERIENCE
+
+### Self-Directed Technology & Digital Project Development
+**Ongoing**
+
+Building and documenting practical projects while developing knowledge across AI, digital products, automation, research, data workflows and digital operations.
+
+Activities include:
+
+- Defining project ideas and requirements
+- Using AI tools for coding assistance, research and troubleshooting
+- Exploring unfamiliar technologies through practical projects
+- Testing implementations and iterating on solutions
+- Researching technical and market information
+- Organizing projects and maintaining GitHub repositories
+- Creating documentation and recording implementation decisions
+- Using automated checks and security practices where appropriate
+
+This independent project and learning experience is intentionally presented separately from formal employment. No employer, client or professional result is claimed.
 
 ## EDUCATION
 
-**University Education — Incoming Undergraduate / Currently Pursuing University Education**
+**University Education — Currently Pursuing**
 
 Further institutional and programme details will be added when confirmed.
 
 ## PROFESSIONAL EXPERIENCE
 
-### Independent Project-Based Technology Work
-**Ongoing**
+**No formal professional work experience to date.**
 
-Developing practical technology projects to build experience in AI, automation, software development, research, data workflows and digital operations.
+## PROFESSIONAL STRENGTHS
 
-Activities include:
-
-- Designing and implementing software features
-- Working with APIs, databases and web technologies
-- Researching technical and market information
-- Documenting projects and implementation decisions
-- Using GitHub for version-controlled development
-- Building automated checks and improving repository security
-- Evaluating project functionality and documenting limitations honestly
-
-> Independent project work is intentionally presented separately from formal employment. No employer, client or professional result is claimed unless it can be verified.
-
-## TECHNICAL TOOLKIT
-
-| Category | Technologies / Methods |
-|---|---|
-| Languages | Python, JavaScript, HTML, CSS |
-| Backend | FastAPI, REST APIs |
-| Data | SQLite, Supabase |
-| AI | AI provider APIs, Ollama, LLM workflow experimentation |
-| Automation | APScheduler, Playwright, workflow orchestration |
-| Version Control | Git, GitHub |
-| DevOps | GitHub Actions, CI checks |
-| Security | Environment variables, OAuth/PKCE concepts, secret-management practices |
-| Documentation | Markdown, API documentation, technical project documentation |
-
-## RESEARCH & PROFESSIONAL STRENGTHS
-
-- Analytical and research-oriented approach
-- Strong willingness to learn new technologies
-- Practical, project-based learning style
-- Clear technical documentation
+- Curiosity and willingness to learn
+- Self-directed learning
+- Practical experimentation
+- Research and information gathering
+- Structured problem solving
+- Persistence and iterative improvement
+- Ability to turn ideas into practical projects
+- AI-assisted workflow experimentation
+- Documentation and organization
 - Attention to attribution and information integrity
-- Structured approach to workflows and problem solving
-- Interest in AI-enabled productivity and automation
 
 ## CAREER INTERESTS
 
 Seeking opportunities to develop professionally in:
 
 - Artificial intelligence and automation
-- Software and web development
-- Research and internet/market research
+- Digital products and technology
+- Software and web technology
+- Internet and market research
 - Data and digital operations
 - Project coordination
-- Technology support and digital products
-- AI adoption and business automation
+- Technology support
+- Emerging technologies and AI adoption
 
 ## CERTIFICATIONS
 
-No formal professional certifications are listed at this time. Certifications will be added only after they are genuinely earned and verifiable.
+No formal professional certifications are currently listed. Credentials will be added only after they are genuinely earned and verifiable.
 
 ## REFERENCES
 
@@ -121,7 +133,7 @@ Available upon request.
 
 ## PROFESSIONAL INTEGRITY STATEMENT
 
-This CV follows an evidence-first standard. Education, employment, certifications, project ownership, technical capability and outcomes are described conservatively and are not presented as stronger than the available evidence supports. Fork-derived and adapted work is explicitly attributed.
+This CV is intentionally evidence-based. I currently have no formal professional work experience and use AI extensively as part of my development and learning workflow. Projects are presented as personal or independent work where appropriate, and technologies are described according to my actual level of exposure. Fork-derived work is attributed rather than presented as entirely original.
 
 ---
 

@@ -1,95 +1,63 @@
-# Akinola Ayomide Daniel — Professional Portfolio
+# SocialFlow
 
-**Aspiring Technology & AI Professional**
+**AI-assisted social media automation project**
 
-Welcome to my professional GitHub portfolio. I use practical projects to demonstrate skills in AI, automation, software development, research, data organization, project workflows and digital operations.
+SocialFlow is a self-hosted project exploring how AI and automation can support a social-media workflow from research and planning through content generation, review, scheduling, publishing, and analytics.
 
-## 👤 About Me
+> **Portfolio note:** This repository is fork-derived from [`inbharatai/SocialFlow`](https://github.com/inbharatai/SocialFlow). Upstream work is not presented as my original creation. Portfolio claims are limited to changes and project work I personally make in this repository.
 
-I am currently pursuing university education and building my professional track record through hands-on projects and continuous learning.
+## What I am exploring
 
-**Career interests:** AI & automation · Software development · Research · Data · Project coordination · Digital operations · Cybersecurity fundamentals
+- AI-assisted content workflows
+- Social-media research and planning
+- Automated scheduling and publishing
+- API integrations and OAuth/PKCE concepts
+- Browser automation with Playwright
+- Persistent local data with SQLite
+- Background task scheduling
+- Testing, CI, and security practices
 
-## 📄 CV & Resume
+## Technology exposure
 
-- **[Full CV](CV.md)** — education, skills, projects and professional profile
-- **[Resume](RESUME.md)** — concise version for job and internship applications
-- **[Professional Profile](PROFILE.md)** — career direction and working principles
-- **[Skills](SKILLS.md)** — technical, research and professional skills
-- **[Education](EDUCATION.md)** — education and development
-- **[Projects](PROJECTS.md)** — portfolio project index
+The repository has involved working with or exploring:
 
-## 🚀 Featured Projects
+- Python
+- FastAPI
+- SQLite
+- APScheduler
+- Playwright
+- REST APIs
+- AI/LLM provider integrations
+- OAuth/PKCE concepts
+- GitHub Actions
+- Environment variables and secret-management practices
 
-### SocialFlow
-**AI-assisted social media automation platform**
+These technologies are listed as **project exposure through an AI-assisted workflow**, not as a claim of independent professional-level proficiency in every technology.
 
-A technical project covering research, planning, content generation, review, scheduling, publishing and analytics.
+## Development approach
 
-**Stack:** Python · FastAPI · SQLite · APScheduler · Playwright · AI provider integrations
+My current workflow makes extensive use of AI tools for technical research, requirements exploration, coding assistance, prototyping, debugging, testing support, and documentation. I direct the requirements, review results, test where practical, and iterate on the project.
 
-**What it demonstrates:** AI workflows, APIs, automation, OAuth/PKCE concepts, browser automation, persistence, security practices, testing and CI.
+## Project status
 
-> **Integrity disclosure:** This repository is fork-derived from `inbharatai/SocialFlow`. I do not claim the upstream project as my original creation. My portfolio claims are limited to the work and changes I personally make in this repository.
+SocialFlow is a portfolio development project. Features and integrations should be considered experimental unless their behavior is explicitly verified in the repository or deployed environment.
 
-### GreyVerse
-**Online gaming and esports platform**
+## Security
 
-A project focused on player accounts, tournaments, leagues, rankings, rewards and match workflows.
+- Do not commit API keys, OAuth secrets, passwords, or other credentials.
+- Use environment variables or an appropriate secret-management system for sensitive configuration.
+- Treat external platform credentials and inbound content as untrusted input.
+- Report security issues responsibly.
 
-**Stack:** HTML · CSS · JavaScript · Supabase · web/mobile tooling
+## Attribution
 
-## 🧠 Skills
+This repository retains its fork-derived relationship with the upstream project. Changes made here are documented separately from upstream functionality wherever practical.
 
-| Area | Skills / Technologies |
-|---|---|
-| AI & Automation | AI-assisted workflows, automation, LLM experimentation |
-| Development | Python, JavaScript, HTML, CSS, FastAPI |
-| Data | SQLite, Supabase, data organization, documentation |
-| Research | Internet research, information gathering, source comparison |
-| Operations | Project coordination, workflow planning, digital operations |
-| Security | Environment variables, OAuth concepts, secret-management practices, cybersecurity fundamentals |
-| Collaboration | Git, GitHub, CI workflows |
+## Links
 
-## 🎓 Education
-
-**University education — incoming undergraduate / currently pursuing university education**
-
-No unsupported degrees or certifications are listed. Verified qualifications will be added when earned.
-
-## 💼 Experience
-
-My current professional evidence is primarily project-based. I do not represent independent projects as formal employment or claim professional experience that I have not completed.
-
-## 📈 Portfolio Roadmap
-
-Planned projects will be added only after genuine implementation and documentation:
-
-- AI Research Lab
-- Recruitment Tracker
-- Project Management Dashboard
-- Travel Planner
-- Affiliate Campaign Tracker
-
-Each project should include a problem statement, implemented features, technology stack, evidence/demo, setup instructions, tests and known limitations.
-
-## 🔐 Integrity & Security
-
-This portfolio follows a simple rule: **claim what can be demonstrated and verified.**
-
-- No real credentials or secrets belong in this repository.
-- Forked/adapted work is clearly attributed.
-- Project status is reported honestly.
-- Automated tests are not presented as proof of complete production readiness.
-- Employment, education and certification claims are not invented.
-
-See **[SECURITY.md](SECURITY.md)** for repository security guidance.
-
-## 📫 Contact
-
-**Akinola Ayomide Daniel**  
-GitHub: [Dannygray29](https://github.com/Dannygray29)
+- [Repository](https://github.com/Dannygray29/SocialFlow)
+- [Upstream project](https://github.com/inbharatai/SocialFlow)
 
 ---
 
-*This repository is a living professional portfolio and will be updated as new, verified work is completed.*
+*Evidence first. Build practically. Attribute accurately.*

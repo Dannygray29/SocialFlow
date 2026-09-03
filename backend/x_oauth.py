@@ -1,4 +1,8 @@
-"""X OAuth 2.0 Authorization Code + PKCE routes for SocialFlow."""
+"""X OAuth 2.0 Authorization Code + PKCE routes for SocialFlow.
+
+The callback intentionally does not claim a connection is complete until the
+exchanged token can be durably persisted by a real account/token store.
+"""
 import base64
 import hashlib
 import hmac
@@ -7,7 +11,7 @@ import secrets
 from urllib.parse import urlencode
 
 import httpx
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException
 from fastapi.responses import RedirectResponse
 
 router = APIRouter(prefix="/api/x", tags=["x"])
@@ -71,7 +75,7 @@ async def x_connect():
 @router.get("/callback")
 async def x_callback(code: str | None = None, state: str | None = None, error: str | None = None):
     if error:
-        return RedirectResponse(f"/?x_error={error}")
+        return RedirectResponse("/?" + urlencode({"x_error": error}))
     if not code or not state:
         raise HTTPException(status_code=400, detail="Missing OAuth code or state")
 
@@ -99,6 +103,15 @@ async def x_callback(code: str | None = None, state: str | None = None, error: s
         raise HTTPException(status_code=502, detail="X token exchange failed")
 
     token = response.json()
-    # Deliberately do not return access/refresh tokens in the browser URL.
-    # Persistent token storage will be wired to the SocialFlow Supabase project.
-    return RedirectResponse(f"/?x_connected=true&scope={token.get('scope', '')}")
+    # The token is intentionally not returned to the browser and is not
+    # persisted here. A durable account/token store must be connected before
+    # the application reports the account as connected.
+    return RedirectResponse(
+        "/?" + urlencode(
+            {
+                "x_authorized": "true",
+                "x_persisted": "false",
+                "scope": token.get("scope", ""),
+            }
+        )
+    )

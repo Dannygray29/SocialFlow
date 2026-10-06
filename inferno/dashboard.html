@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inferno</title>
+<style>
+body{margin:0;background:#09090b;color:#fafafa;font-family:system-ui,sans-serif;min-height:100vh;display:grid;place-items:center}
+main{width:min(92vw,560px);padding:28px}.logo{font-size:42px;font-weight:800;margin-bottom:8px}.sub{color:#a1a1aa;margin-bottom:28px}
+.card{background:#18181b;border:1px solid #3f3f46;border-radius:18px;padding:18px;margin:12px 0;display:flex;align-items:center;justify-content:space-between}
+.name{font-weight:700}.status{font-size:13px;color:#a1a1aa;margin-top:4px}
+button{border:0;border-radius:12px;padding:11px 16px;font-weight:700;background:#8b5cf6;color:white;text-decoration:none}
+button.connected{background:#22c55e}.primary{width:100%;font-size:17px;margin-top:22px;padding:16px}
+</style>
+</head>
+<body><main>
+<div class="logo">🔥 Inferno</div>
+<div class="sub">Create once. Render automatically. Publish everywhere.</div>
+<div class="card"><div><div class="name">YouTube Shorts</div><div id="yt-status" class="status">Checking…</div></div><button id="yt" onclick="connect('youtube')">Connect</button></div>
+<div class="card"><div><div class="name">TikTok</div><div id="tt-status" class="status">Checking…</div></div><button id="tt" onclick="connect('tiktok')">Connect</button></div>
+<button class="primary" onclick="openChat()">🔥 Create today's video</button>
+<script>
+async function load(){
+ try{
+  const r=await fetch('/api/inferno/connections'); const d=await r.json();
+  set('youtube',d.youtube); set('tiktok',d.tiktok);
+ }catch(e){}
+}
+function set(p,d){
+ const b=document.getElementById(p==='youtube'?'yt':'tt'), s=document.getElementById(p==='youtube'?'yt-status':'tt-status');
+ if(d.connected){b.textContent='Connected ✓';b.className='connected';s.textContent=d.account_name||'Connected';}
+ else{s.textContent='Not connected';}
+}
+function connect(p){location.href='/api/inferno/connect/'+p}
+function openChat(){
+ const prompt=encodeURIComponent("Create today's video for Inferno MVP. Write the final 30–60 second original short-form video script, with hook, narration, on-screen text/caption cues, title, description, and hashtags. Make it ready to send into the Inferno production queue.");
+ location.href='https://chatgpt.com/?q='+prompt;
+}
+load();
+</script>
+</main></body></html>

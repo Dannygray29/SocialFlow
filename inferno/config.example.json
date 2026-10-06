@@ -1,0 +1,13 @@
+{
+  "poll_seconds": 10,
+  "content_root": "content",
+  "render": {
+    "width": 1080,
+    "height": 1920,
+    "fps": 30
+  },
+  "publishing": {
+    "youtube": true,
+    "tiktok": true
+  }
+}

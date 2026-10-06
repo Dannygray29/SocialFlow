@@ -33,6 +33,7 @@ from asset_inventory import init_asset_tables
 from analytics_store import init_analytics_tables, register_analytics_routes
 from visual_content_routes import router as visual_router
 from brand_kit import router as brand_router, init_brand_tables
+from inferno_connections import router as inferno_router
 from agents.orchestrator import run_full_pipeline, run_publish_only, run_scout_only, run_analyst_only, status as pipeline_status
 from agents.scout import init_signals_table
 from agents.planner import init_plans_table
@@ -780,6 +781,8 @@ register_analytics_routes(app)
 app.include_router(visual_router)
 # Register brand kit routes
 app.include_router(brand_router)
+# Inferno one-tap YouTube/TikTok connections
+app.include_router(inferno_router)
 
 # Serve frontend
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
@@ -789,6 +792,10 @@ app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
 @app.get("/")
 async def serve_frontend():
     return FileResponse("../frontend/index.html")
+
+@app.get("/inferno")
+async def serve_inferno():
+    return FileResponse("../inferno/dashboard.html")
 
 @app.get("/api/health")
 async def health_check():
